@@ -1,0 +1,1 @@
+rm Gau* *.chk *.rwf

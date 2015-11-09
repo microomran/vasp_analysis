@@ -1,0 +1,24 @@
+  int atomCount;
+  sscanf(line,"%d",&atomCount);
+  if(atomCount<0 || atomCount>MAX_ATOM_COUNT){
+    printf("Atom count %d is wrong\n",atomCount);
+  for(i=0;i<atomCount;i++){  
+  for(i=0;i<atomCount;i++){
+  printf("%d\n",atomCount);
+  for(i=0;i<atomCount;i++){
+  int atomCount;
+  sscanf(line,"%d",&atomCount);
+  if(atomCount<0 || atomCount>MAX_ATOM_COUNT){
+    printf("Atom count %d is wrong\n",atomCount);
+  for(i=0;i<atomCount;i++){  
+  for(i=0;i<atomCount;i++){
+  printf("%d\n",atomCount);
+  for(i=0;i<atomCount;i++){
+  int atomCount;
+  sscanf(line,"%d",&atomCount);
+  if(atomCount<0 || atomCount>MAX_ATOM_COUNT){
+    printf("Atom count %d is wrong\n",atomCount);
+  for(i=0;i<atomCount;i++){  
+  for(i=0;i<atomCount;i++){
+  printf("%d\n",atomCount);
+  for(i=0;i<atomCount;i++){

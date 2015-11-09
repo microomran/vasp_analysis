@@ -1,0 +1,61 @@
+#!/bin/bash
+#PBS -N name
+#PBS -l walltime=00:02:00
+#PBS -l nodes=16:ppn=8
+#PBS -j oe
+#PBS -o pbs_out
+#PBS -A PAA0002
+
+trap "cd $PBS_O_WORKDIR; cp -r $TMPDIR/* ./; rm CHG CHGCAR DOSCAR EIGENVAL IBZKPT WAVECAR vasp" TERM
+
+if [[ $PBS_O_HOST == *'oakley'* ]];
+then
+    echo "OAKLEY";
+    # The location where you put your Oakley version vasp executable 
+    pbsdcp ~/vasp_binary/vasp.oak.5.3.2.d3 $TMPDIR/vasp
+
+else
+    echo "GLENN";
+    module switch mpi mvapich2-1.5-intel
+    module load acml-4.0.1-intel
+    # If you are using 5.2.12 and later ( 5.3.2 , 5.3.3, etc ) on glenn, you should load 'fftw3-3.3.2-intel' instead of fftw3
+    module load fftw3-3.3.2-intel
+    module load scalapack-intel
+    # The location where you put your Glenn version vasp executable
+    pbsdcp ~/vasp_binary/vasp.glenn.5.3.2 $TMPDIR/vasp
+fi;
+
+
+cd $PBS_O_WORKDIR
+#
+# Copy input files to $TMPDIR and run vasp there.
+#
+# When using MORE THAN ONE NODE, INCAR must be copied to each node
+# so use distributed copy command "pbsdcp".
+for i in CHG CHGCAR WAVECAR
+do
+    if [ -e $i- ];
+    then
+        pbsdcp -s $i- $TMPDIR/$i;
+    elif [ -e $i ];
+    then
+        pbsdcp -s $i $TMPDIR/$i;
+    fi
+done;
+
+for infile in INCAR POTCAR POSCAR KPOINTS dftd3 dftd3_script
+do
+  pbsdcp -s $infile $TMPDIR
+done
+
+
+cd $TMPDIR
+time mpiexec vasp
+
+#
+# Copy output files BACK to permanent storage in $HOME.
+#
+for outfile in OSZICAR CONTCAR OUTCAR CHG CHGCAR WAVECAR XDATCAR
+do
+  cp $TMPDIR/$outfile $PBS_O_WORKDIR/$outfile-
+done

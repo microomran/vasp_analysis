@@ -1,0 +1,9 @@
+start=$(date)
+while true
+do
+	clear
+	echo "start : $start"
+	echo "now   : $(date)"
+	myps
+	sleep 3
+done;

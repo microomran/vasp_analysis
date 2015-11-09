@@ -1,0 +1,2 @@
+When using vasp2xyz2 and vasp2xyz3, NEVER name your input file as
+"temp"

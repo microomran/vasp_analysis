@@ -1,0 +1,4 @@
+mv incar INCAR
+mv kpoints KPOINTS
+mv poscar POSCAR
+mv potcar POTCAR

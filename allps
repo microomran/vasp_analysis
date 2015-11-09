@@ -1,0 +1,34 @@
+for i in osu5776 \
+osu5796 \
+osu6212 \
+osu6213 \
+osu6302 \
+osu6419 \
+osu6420 \
+osu6449 \
+osu6474 \
+osu6603 \
+osu6768 \
+osu6996 \
+osu7471 \
+osu7833 \
+osu9000 \
+osu6997 \
+osu7020 \
+osu6737 \
+osu6770 \
+osu6866 \
+osu7986 \
+osu7401 \
+osu8315 \
+osu8494 \
+osu8441;
+do
+	njobs=$(qstat -u "$i"|wc -l)
+	if [ $njobs -gt 0 ]
+	   then
+	   echo $i	
+	   qstat -u "$i"
+	   echo "-----------------------"
+	fi
+done;
