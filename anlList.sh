@@ -94,14 +94,12 @@ do
               echo -e "$err"
               echo -e $next >> ~/errors
               echo -e "$err" >> ~/errors
+	      continue
 
           fi
         fi
     else
-      echo -e "$next" >> ~/errors
-      echo -e "not started yet" >> ~/errors
-      echo -e "$next" 
-      echo -e "not started yet"
+        qsub runvasp.pbs
     fi
   fi     
 done
