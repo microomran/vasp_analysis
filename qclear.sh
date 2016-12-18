@@ -23,6 +23,8 @@ if [ $1 -eq 2 ];then
   mv WAVECAR- WAVECAR
   mv CONTCAR- POSCAR
   rm -f vasprun.xml PCDAT XDATCAR* DOSCAR* PROCAR*
+  editTag.sh modify ISTART 1
+  editTag.sh modify ICHARG 1
 fi
 if [ $1 -eq 3 ];then
   rm -f CHG*  WAVECAR*

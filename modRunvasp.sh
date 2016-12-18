@@ -7,6 +7,7 @@ echo "success"
 qsub runvasp.pbs
 pwd
 echo $i > ~/.id
+JobSqlite.sh
 fi
 
 
