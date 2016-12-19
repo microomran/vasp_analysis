@@ -53,8 +53,8 @@ do
         if [ `RunType.sh` == "VASPSol" ];then
           if [ `isConverge` == 'y' ];then  # already converged
             if [ -d "LSOL" ];then # already has LSOL job
-              rm -f "CHG*"
-              rm -f "WAVECAR*"
+              rm -f CHG*
+              rm -f WAVECAR*
               continue
             else  # no LSOL job, start to create LSOL job
                 prepareLSOL.sh
@@ -67,8 +67,8 @@ do
         fi
         #----------------------Normal OPT-----------------------------------------
         if [ `isConverge` == 'y' ];then  # converged to required accuracy level
-          rm -f "CHG*"
-          rm -f "WAVECAR*"
+          rm -f CHG*
+          rm -f WAVECAR*
           continue
         else  #has not converged to results
           err=`ErrorDetect.sh`
@@ -100,8 +100,8 @@ do
               echo -e "$err"
               echo -e $next >> ~/errors
               echo -e "$err" >> ~/errors
-              rm -f "CHG*"
-              rm -f "WAVECAR*"
+              rm -f CHG*
+              rm -f WAVECAR*
 	      continue
           fi
         fi
