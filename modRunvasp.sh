@@ -8,6 +8,10 @@ qsub runvasp.pbs
 pwd
 echo $i > ~/.id
 JobSqlite.sh
+if [[ `hostname` == *'owens'* ]];then
+        echo 'owens'
+        pwd >> ~/newlist
+elif [[ `hostname` == *'ruby'* ]];then
+        echo 'ruby'
+        pwd >> ~/oldlist
 fi
-
-
