@@ -27,6 +27,7 @@ do
         # ----------------------Bader---------------------------------------
         if [ `RunType.sh` == "BADER" ];then
 	  if [ -f "ACF.dat" ];then   # already has result and performed bader analsyis
+            rmWAVECHG.sh
             continue
           fi
           if [ ! -z "`grep "1 F=" pbs_out`" ] && [ -z "`ErrorDetect.sh`" ];then   # has good but have not done bader analysis
@@ -40,6 +41,7 @@ do
         #-----------------------Vib--------------------------------------------
         if [ `RunType.sh` == "VIB" ];then
           if [ ! -z "`grep cm OUTCAR-`" ];then  # already got restuls
+            rmWAVECHG.sh
             continue
           else
             echo -e "`pwd`" "has errors"
@@ -51,6 +53,8 @@ do
         if [ `RunType.sh` == "VASPSol" ];then
           if [ `isConverge` == 'y' ];then  # already converged
             if [ -d "LSOL" ];then # already has LSOL job
+              rm -f "CHG*"
+              rm -f "WAVECAR*"
               continue
             else  # no LSOL job, start to create LSOL job
                 prepareLSOL.sh
@@ -63,6 +67,8 @@ do
         fi
         #----------------------Normal OPT-----------------------------------------
         if [ `isConverge` == 'y' ];then  # converged to required accuracy level
+          rm -f "CHG*"
+          rm -f "WAVECAR*"
           continue
         else  #has not converged to results
           err=`ErrorDetect.sh`
@@ -72,7 +78,7 @@ do
               for (( ; ; ))
               do
                 folder=`grep "run$ij" .temp1`
-                if [ ! -z $folder ]; then
+                if [ ! -z "$folder" ]; then
                   ij=$((ij+1))
                 else
                   break;
@@ -94,8 +100,9 @@ do
               echo -e "$err"
               echo -e $next >> ~/errors
               echo -e "$err" >> ~/errors
+              rm -f "CHG*"
+              rm -f "WAVECAR*"
 	      continue
-
           fi
         fi
     else
