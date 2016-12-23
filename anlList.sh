@@ -67,9 +67,9 @@ do
         fi
         #----------------------Normal OPT-----------------------------------------
         if [ `isConverge` == 'y' ];then  # converged to required accuracy level
-          rm -f CHG*
-          rm -f WAVECAR*
-          continue
+            rm -f CHG*
+            rm -f WAVECAR*
+            continue
         else  #has not converged to results
           err=`ErrorDetect.sh`
           if [ -z "$err" ];then #-------------------------no error at all -------------------------
@@ -86,7 +86,6 @@ do
               done
               mkdir "run$ij"
               cpVASP.sh "run$ij"
-              qclear.sh 2
               editTag.sh remove MAGMOM
               editTag.sh modify ISTART 1
               editTag.sh modify ICHARG 1
@@ -94,8 +93,15 @@ do
               if [ ! -z "$lowAccu" ];then
                 editTag.sh modify EDIFF 1e-5
               fi  
+              qclear.sh 2
               qsub runvasp.pbs   #-----------------no error at all----------------------------
           else  # has some error
+              nohermitan=`grep -c "WARNING: Sub-Space-Matrix is not hermitian in DAV" pbs_out `
+              if [ $nohermitan -ne 0 ];then
+                  38restart.sh
+                  qsub runvasp.pbs
+                  continue
+              fi
               echo -e $next
               echo -e "$err"
               echo -e $next >> ~/errors
