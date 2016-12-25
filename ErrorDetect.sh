@@ -31,3 +31,9 @@ out3=`grep -m 1 "$err" pbs_out`
 if [ ! -z "$out3" ];then
         echo "encouter very serious problems"
 fi
+#--------------------WARNING in EDDRMM-------------------------------------
+err="WARNING in EDDRMM: call to ZHEGV failed"
+out4=`grep -m 1 "$err" pbs_out`
+if [ ! -z "$out4" ];then
+        echo "WARNING in EDDRMM: call to ZHEGV failed"
+fi
